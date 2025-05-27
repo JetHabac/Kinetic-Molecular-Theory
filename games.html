@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kinetic Molecular Theory</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="image/10.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="style1.css" rel="stylesheet">
+    <style>
+        .container1 {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container2 {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .options button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            flex: 1 1 45%;
+            max-width: 100px;
+            transition: all 0.3s;
+        }
+        .options button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .response {
+            margin-top: 10px;
+            color: #28a745;
+            font-weight: bold;
+            display: none;
+        }
+        .questionImg{
+            max-width: 100%;
+            width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .congrats-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .congrats-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s;
+        }
+    .modal-content h2 {
+        color: #28a745;
+        margin-bottom: 20px;
+    }
+    .modal-content p {
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    .modal-content button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+    .modal-content button:hover {
+        background-color: #0056b3;
+    }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .definition {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            display: none;
+        }
+        .score-display {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .progress-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            padding: 3px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    
+<!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+        <a href="" class="navbar-brand p-0">
+            <h1 class="text-primary m-0">Kinetic Molecular</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="learnmore.html" class="nav-item nav-link">Content</a>
+                <a href="researchers.html" class="nav-item nav-link active">Games</a>
+                <a href="Assessment/post.html" class="nav-item nav-link">Post-Assessment</a>
+                <a href="faq.html" class="nav-item nav-link">Summary</a>
+                <a href="researchers.html" class="nav-item nav-link">Researchers</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<br>
+<br>
+<br>
+    <!-- About Start -->
+<button class="back-button" onclick="goBack()" id="backButton"><i class="fas fa-chevron-circle-left"></i></button>
+<br>
+<br>
+
+<!-- Start Game Modal -->
+<div id="startModal" class="congrats-modal" style="display: flex;">
+    <div class="modal-content">
+        <h2>Welcome to the KMT Postulates Game!</h2>
+        <p>Test your knowledge of the Kinetic Molecular Theory postulates.</p>
+        <p><b>Instructions:</b> Choose the correct postulate for each scenario.</p>
+        <button onclick="startGame()" style="background-color: #28a745;">Start Game</button>
+    </div>
+</div>
+
+    <div class="container3">
+        <h1>KMT Postulates Game</h1>
+        <p><b>Instruction:</b> Choose the correct postulate for each question.</p>
+        <br>
+        <!-- Score Display -->
+        <div class="score-display" id="scoreDisplay">
+            Score: <span id="score">0</span>/5
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-text" id="progressText">0/5 questions completed</div>
+        </div>
+    
+        <!-- Question 1 -->
+        <div class="question1">
+            <img src="image/111.webp" class="questionImg" alt="Question 1 Image">
+            <p><b>1. Weak intermolecular forces in air cause low density, making breathing easy.</b></p>
+            <div class="options1">
+                <button onclick="checkAnswer(1, 'A')">Postulate A</button>
+                <button onclick="checkAnswer(1, 'B')">Postulate B</button>
+                <button onclick="checkAnswer(1, 'C')">Postulate C</button>
+                <button onclick="checkAnswer(1, 'D')">Postulate D</button>
+                <button onclick="checkAnswer(1, 'E')">Postulate E</button>
+            </div>
+            <div id="feedback1" class="feedback"></div>
+            <div id="definition1" class="definition"></div>
+        </div>
+
+    <!-- Question 2 -->
+    <div class="question1">
+        <img src="image/112.webp" class="questionImg" alt="Question 2 Image">
+        <p><b>2. A bouncing ball loses little energy on impact.</b></p>
+        <div class="options1">
+            <button onclick="checkAnswer(2, 'A')">Postulate A</button>
+            <button onclick="checkAnswer(2, 'B')">Postulate B</button>
+            <button onclick="checkAnswer(2, 'C')">Postulate C</button>
+            <button onclick="checkAnswer(2, 'D')">Postulate D</button>
+            <button onclick="checkAnswer(2, 'E')">Postulate E</button>
+        </div>
+        <div id="feedback2" class="feedback"></div>
+        <div id="definition2" class="definition"></div>
+    </div>
+                
+    <!-- Question 3 -->
+    <div class="question1">
+        <img src="image/113.webp" class="questionImg" alt="Question 3 Image">
+        <p><b>3. Hot air balloons rise due to increased air molecule speed.</b></p>
+        <div class="options1">
+            <button onclick="checkAnswer(3, 'A')">Postulate A</button>
+            <button onclick="checkAnswer(3, 'B')">Postulate B</button>
+            <button onclick="checkAnswer(3, 'C')">Postulate C</button>
+            <button onclick="checkAnswer(3, 'D')">Postulate D</button>
+            <button onclick="checkAnswer(3, 'E')">Postulate E</button>
+        </div>
+        <div id="feedback3" class="feedback"></div>
+        <div id="definition3" class="definition"></div>
+    </div>
+                                        
+    <!-- Question 4 -->
+    <div class="question1">
+        <img src="image/114.webp" class="questionImg" alt="Question 4 Image">
+        <p><b>4. A balloon is mostly empty space.</b></p>
+        <div class="options1">
+            <button onclick="checkAnswer(4, 'A')">Postulate A</button>
+            <button onclick="checkAnswer(4, 'B')">Postulate B</button>
+            <button onclick="checkAnswer(4, 'C')">Postulate C</button>
+            <button onclick="checkAnswer(4, 'D')">Postulate D</button>
+            <button onclick="checkAnswer(4, 'E')">Postulate E</button>
+        </div>
+        <div id="feedback4" class="feedback"></div>
+        <div id="definition4" class="definition"></div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question1">
+        <img src="image/115.webp" class="questionImg" alt="Question 5 Image">
+        <p><b>5. Wind is air molecule movement from high to low pressure.</b></p>
+        <div class="options1">
+            <button onclick="checkAnswer(5, 'A')">Postulate A</button>
+            <button onclick="checkAnswer(5, 'B')">Postulate B</button>
+            <button onclick="checkAnswer(5, 'C')">Postulate C</button>
+            <button onclick="checkAnswer(5, 'D')">Postulate D</button>
+            <button onclick="checkAnswer(5, 'E')">Postulate E</button>
+        </div>
+        <div id="feedback5" class="feedback"></div>
+        <div id="definition5" class="definition"></div>
+    </div>
+</div>
+
+<!-- Updated Congratulations Modal -->
+<div id="congratsModal" class="congrats-modal">
+    <div class="modal-content">
+        <h2>Congratulations! 🎉</h2>
+        <p id="finalScoreText"></p>
+        <div class="modal-buttons">
+            <button class="try-again" onclick="restartGame()">Try Again</button>
+            <button class="exit" onclick="exitGame()">Exit</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Game configuration with proper question isolation
+    const game = {
+        questions: {},
+        init: function() {
+            // Initialize each question independently
+            this.questions = {
+                1: this.createQuestion('D'),
+                2: this.createQuestion('C'),
+                3: this.createQuestion('E'),
+                4: this.createQuestion('A'),
+                5: this.createQuestion('B')
+            };
+            
+            // Store button references
+            for (let i = 1; i <= 5; i++) {
+                this.questions[i].buttons = Array.from(
+                    document.querySelectorAll(`.question${i} .options1 button`)
+                );
+            }
+        },
+        
+        createQuestion: function(correctAnswer) {
+            return {
+                correctAnswer: correctAnswer,
+                answered: false,
+                buttons: [],
+                answer: function(selected) {
+                    if (this.answered) return false;
+                    
+                    this.answered = true;
+                    const isCorrect = (selected === this.correctAnswer);
+                    
+                    // Update button states
+                    this.buttons.forEach(btn => {
+                        btn.classList.add('locked');
+                        const postulate = btn.textContent.replace('Postulate ', '');
+                        
+                        if (postulate === this.correctAnswer) {
+                            btn.classList.add('correct-answer');
+                        } else if (postulate === selected) {
+                            btn.classList.add('wrong-answer');
+                        } else {
+                            btn.classList.add('neutral');
+                        }
+                    });
+                    
+                    return isCorrect;
+                }
+            };
+        },
+        
+        definitions: {
+            A: "A gas is composed of large number of particles, either atoms or molecules.",
+            B: "Gas particles move randomly in straight line motion and collide with each other and the container frequently.",
+            C: "Collisions of gas molecules are perfectly elastic.",
+            D: "Gas particles exhibit almost negligible attractions and repulsions for each other.",
+            E: "The average kinetic energy of gas molecules is directly proportional to the absolute temperature."
+        },
+        
+        score: 0,
+        totalAnswered: 0
+    };
+
+    // Check answer for a single question
+    function checkAnswer(questionNum, selectedAnswer) {
+        const question = game.questions[questionNum];
+        if (question.answered) return;
+
+        const feedback = document.getElementById(`feedback${questionNum}`);
+        const definition = document.getElementById(`definition${questionNum}`);
+
+        // Process answer
+        const isCorrect = question.answer(selectedAnswer);
+        game.totalAnswered++;
+        
+        if (isCorrect) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            game.score++;
+        } else {
+            feedback.textContent = `Incorrect. Correct answer is Postulate ${question.correctAnswer}`;
+            feedback.className = "feedback incorrect";
+        }
+
+        // Show definition
+        definition.textContent = game.definitions[selectedAnswer];
+        definition.style.display = "block";
+
+        updateScoreDisplay();
+
+        // Check if game is complete
+        if (game.totalAnswered === 5) {
+            showCompletionModal();
+        }
+    }
+
+    function updateScoreDisplay() {
+        document.getElementById('score').textContent = game.score;
+        document.getElementById('progressBar').style.width = `${(game.totalAnswered / 5) * 100}%`;
+        document.getElementById('progressText').textContent = `${game.totalAnswered}/5 answered`;
+    }
+
+    function showCompletionModal() {
+        setTimeout(() => {
+            const msg = `Score: ${game.score}/5 - `;
+            const assessment = game.score === 5 ? 'Perfect! 🎉' : 
+                             game.score >= 3 ? 'Good job! 😊' : 'Try again!';
+            document.getElementById('finalScoreText').textContent = msg + assessment;
+            document.getElementById('congratsModal').style.display = 'flex';
+        }, 500);
+    }
+
+    // Start game function
+    function startGame() {
+        document.getElementById('startModal').style.display = 'none';
+        // Reset all buttons
+        for (let i = 1; i <= 5; i++) {
+            game.questions[i].buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('locked', 'correct-answer', 'wrong-answer', 'neutral');
+                btn.style.backgroundColor = "#007bff";
+            });
+        }
+    }
+
+    // New function to restart the game
+    function restartGame() {
+        // Reset game state
+        game.score = 0;
+        game.totalAnswered = 0;
+        
+        // Reset all questions
+        for (let i = 1; i <= 5; i++) {
+            game.questions[i].answered = false;
+            
+            // Reset buttons
+            game.questions[i].buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('locked', 'correct-answer', 'wrong-answer', 'neutral');
+                btn.style.backgroundColor = "#007bff";
+            });
+            
+            // Reset feedback
+            document.getElementById(`feedback${i}`).textContent = '';
+            document.getElementById(`feedback${i}`).className = 'feedback';
+            document.getElementById(`definition${i}`).style.display = 'none';
+        }
+        
+        // Close modal and reset score display
+        document.getElementById('congratsModal').style.display = 'none';
+        updateScoreDisplay();
+    }
+    
+    // New function to exit the game
+    function exitGame() {
+        // Replace with your desired exit page
+        window.location.href = "learnmore.html"; // Change to your exit page URL
+    }
+    
+
+    // Initialize game properly
+    document.addEventListener('DOMContentLoaded', function() {
+        game.init();
+        document.getElementById('congratsModal').style.display = 'none';
+        document.getElementById('startModal').style.display = 'flex';
+        updateScoreDisplay();
+    });
+</script>
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-3 mt-3 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="copyright">
+                    <div class="col-md-12 text-center">Copyright
+                        &copy; 2025 BiPSU BS-EDUCATION
+
+                       <br> <!--/*** This template is free as long as you keep the footer author's credit link/attribution link/backlink. If you'd like to use the template without the footer author's credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+</body>
+</html>

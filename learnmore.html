@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kinetic Molecular Theory</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="image/10.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style2.css" rel="stylesheet">
+    <link href="style1.css" rel="stylesheet">
+</head>
+<style>
+    .container1 {
+        display: grid;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    .container2 {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .gif-container img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+    .question {
+        margin: 20px 0;
+    }
+    .options {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 10px 0;
+        flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    }
+    .options button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        flex: 1 1 45%; /* Make buttons responsive */
+        max-width: 100px; /* Limit button width */
+    }
+    .options button:hover {
+        background-color: #0056b3;
+    }
+    .response {
+        margin-top: 10px;
+        color: #fdfdfd;
+        font-weight: bold;
+        display: none;
+    }
+        .teacher-container {
+          text-align: center;
+          background-color: #000000;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+          position: relative;
+        }
+        .teacher-img {
+          width: 200px;
+          height: auto;
+          margin-top: 50px; /* Space for the bubble */
+        }
+        .bubble {
+          background-color: #e0f7fa;
+          padding: 15px;
+          border-radius: 10px;
+          position: absolute;
+          top: 10px; /* Position above the teacher */
+          left: 50%;
+          transform: translateX(-50%);
+          cursor: pointer;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .bubble::after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 10px 10px 0;
+          border-style: solid;
+          border-color: #e0f7fa transparent transparent;
+        }
+        .output-bubble {
+          background-color: #c8e6c9;
+          padding: 15px;
+          border-radius: 10px;
+          position: absolute;
+          top: -60px; /* Position above the teacher's head */
+          left: 50%;
+          transform: translateX(-50%);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          display: none; /* Hidden by default */
+        }
+        .output-bubble::after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 10px 10px 0;
+          border-style: solid;
+          border-color: #c8e6c9 transparent transparent;
+        }
+        .trivia-question {
+          background-color: #ffeb3b;
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+        .answer {
+          display: none;
+          background-color: #c8e6c9;
+          padding: 10px;
+          border-radius: 5px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+</style>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    
+<!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+        <a href="" class="navbar-brand p-0">
+            <h1 class="text-primary m-0">Kinetic Molecular</h1>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="learnmore.html" class="nav-item nav-link active">Content</a>
+                <a href="games.html" class="nav-item nav-link">Games</a>
+                <a href="Assessment/post.html" class="nav-item nav-link">Post-Assessment</a>
+                <a href="faq.html" class="nav-item nav-link">Summary</a>
+                <a href="researchers.html" class="nav-item nav-link">Researchers</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<br>
+<br>
+<br>
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-3 px-lg-4 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            </div>
+        </nav>
+    </div>
+
+        <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+            <div class="container py-5">
+                <div class="row justify-content-center py-5">
+                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                        <h2 class="display-3 text-white mb-3 animated slideInDown">Kinetic Molecular Theory Simulation</h2>
+                        <div class="position-relative w-75 mx-auto animated slideInDown">
+                            <a href="Gas Simulations/index.html" class="btn btn-primary rounded-pill py-2 px-4">Play!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Start -->
+<button class="back-button" onclick="goBack()" id="backButton"><i class="fas fa-chevron-circle-left"></i></button>
+<br>
+<section id="about">
+    <section id="">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded-box wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="row">
+                        <div class="col-lg-12 text-center wow zoomIn" data-wow-delay="0.5s">
+                            <p align="justify"><b></b>
+                                <b>The Kinetic Molecular Theory (KMT) effectively explains the behavior of gases. The Kinetic Molecular Theory (KMT) consists of several postulates:</b><br><br>
+                                A. Gas is composed of large number of particles, either atoms or molecules. They are so small compared to the distance separating them that their own size can be considered negligible. Compared to the total gas volume, the particles occupy negligible volume. A considerable empty space exists between particles.<br><br>
+
+                                B. Gas particles move randomly in straight line motion and collide with each other and the container frequently. The force of collisions of the gas particles with the walls of the container causes pressure.<br><br>
+
+                                C. Collisions of gas molecules are perfectly elastic. This means no energy is lost as friction when molecules collide.<br><br>
+
+                                D. Gas particles exhibit almost negligible attractions and repulsions for each other. The molecules thus, move freely as far as space will allow.<br><br>
+
+                                E. The average kinetic energy of gas molecules is directly proportional to the absolute temperature (Kelvin). At the same temperature, the molecules of all gases will have the same average kinetic energy. 
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<section id="scales" style="display: block;">
+    <div class="container base">
+            <h1 class="mb-5 text-center wow zoomIn" data-wow-delay="0.1s">Macroscopic Properties of Gases</h1>
+    </div>
+</section>
+
+<section id="sea">
+    <div class="container-xl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInDown" data-wow-delay="0.1s">
+                <h6 class="mb-4 section-title bg-white text-center text-primary px-3">Types</h6>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded-box">
+                        <h2 class="mb-4 wow slideInDown" data-wow-delay="0.3s">Pressure</h2>
+                        <div class="row align-items-center">
+                            <div class="col-lg-6" >
+                                <div class="position-relative rounded-image wow zoomIn" data-wow-delay="0.2">
+                                    <img class="img-fluid" src="gif/120.gif" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="mb-4 wow fadeInRight" data-wow-delay="0.3s" align="justify">Pressure is the force exerted per unit area.<br> Units: Pascals (Pa), Atmosphere (atm), Millimeters of mercury (mmHg), and Pounds per square inch (psi).
+                                </p>
+                                <p class="mb-4 wow fadeInUp" data-wow-delay="0.3s" align="justify">KMT Postulate:  Postulate B states that gas particles are in constant random motion and collide with each other and the walls of the container.<br><br>
+                                    Relationship to Pressure:  These collisions are the source of pressure. The more frequently and forcefully gas particles collide with the container walls, the higher the pressure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="container-xl py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded-box">
+                        <h2 class="mb-4 wow zoomIn" data-wow-delay="0.3s">Volume</h2>
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                </p>
+                                <div class="position-relative rounded-image wow fadeInUp" data-wow-delay=".4s">
+                                <img class="img-fluid" src="gif/111.gif" alt="">
+                                </div>
+                                <br>
+                                <p class="mb-4 wow fadeInUp" data-wow-delay="0.3s" align="justify">Volume is the amount of space that a substance occupies.<br>
+                                    Units: Liters (L), Milliliters (ml), Cubic meters (m³), and Cubic centimeters (cm³).<br><br>
+                                    KMT Postulate: Postulate A describes gas particles as being very small compared to the distance between them, meaning there's a lot of empty space.<br><br>
+                                    Relationship to Volume: This empty space allows gases to be highly compressible.  Reducing the volume of a container forces the gas particles closer together, increasing the frequency of collisions, and thus increasing pressure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xl py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded-box">
+                        <h2 class="mb-4 wow zoomIn" data-wow-delay="0.3s">Temperature</h2>
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <p class="mb-4 wow fadeInLeft" data-wow-delay="0.3s" align="justify">
+                                    Temperature is a measure of the average kinetic energy of the particles in a substance.<br> Units: Celsius (°C), Fahrenheit(°F), and Kelvin (K).
+                                </p>
+                                <p class="mb-4 wow fadeInLeft" data-wow-delay="0.3s" align="justify">
+                                    KMT Postulate: Postulate E establishes that the average kinetic energy of gas molecules is directly proportional to absolute temperature.<br>
+                                    Relationship to Temperature: Higher temperature means faster-moving gas molecules. This increased kinetic energy leads to:
+                                </p>
+                                <div class="position-relative rounded-image wow slideInDown" data-wow-delay="0.3s">
+                                    <img class="img-fluid" src="gif/112.gif" alt="">
+                                    </div>
+                                    <br>
+                                <p class="mb-4 wow fadeInUp" data-wow-delay="0.3s" align="justify">
+                                    - More frequent collisions: The faster molecules collide more often with the container walls, increasing pressure.<br>
+                                    - More forceful collisions: The collisions themselves are more forceful, further increasing pressure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <section id="">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded-box wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="row">
+                        <div class="col-lg-12 text-center wow zoomIn" data-wow-delay="0.5s">
+                            <div class="container2">
+                                <h1>Apply What You Have Learned!</h1>
+                                <p>Instructions: Fill your mouth with air. Press your cheeks with your fingers.</p>
+                            
+                                <!-- GIF Placeholder -->
+                                <div class="gif-container">
+                                  <img src="13.gif" alt="Cheek Press GIF">
+                                </div>
+                            
+                                <!-- Question 1 -->
+                                <div class="question">
+                                  <p>1. Did the air occupy space in your mouth?</p>
+                                  <div class="options">
+                                    <button onclick="showResponse(1, 'yes')">YES</button>
+                                    <button onclick="showResponse(1, 'no')">NO</button>
+                                  </div>
+                                  <div id="response1" class="response">
+                                    You were able to fill your mouth with air, indicating that the air took up space within your mouth.
+                                  </div>
+                                </div>
+                                                        
+                             <!-- Question 2 -->
+                             <div class="question">
+                                <p>2. Were you able to press your cheeks with your fingers?</p>
+                                <div class="options">
+                                  <button onclick="showResponse(2, 'yes')">YES</button>
+                                  <button onclick="showResponse(2, 'no')">NO</button>
+                                </div>
+                                <div id="response2" class="response">
+                                  You could press your cheeks, indicating that they were not empty but filled with something (air).
+                                </div>
+                              </div>
+                          
+                              <!-- Question 3 -->
+                              <div class="question">
+                                <p>3. When you pressed one of your cheeks, did you feel the air moving to the other side of your cheek?</p>
+                                <div class="options">
+                                  <button onclick="showResponse(3, 'yes')">YES</button>
+                                  <button onclick="showResponse(3, 'no')">NO</button>
+                                </div>
+                                <div id="response3" class="response">
+                                  The air, being compressible, moved to the other side of your cheek when you pressed on one side. This further proves that air occupies space and is capable of moving to accommodate pressure.
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section id="scales" style="display: block;">
+    <div class="container base">
+        <h1 class="mb-5 text-center wow zoomIn" data-wow-delay="0.1s">Relationship Between Pressure, Temperature, and Volume</h1>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row justify-content-center wow zoomIn" data-wow-delay="0.3s">
+                <div class="col-lg-8 container6">
+                    <video src="video/Pressure in Gases  Matter  Physics  FuseSchool.mp4" class="img-fluid" controls></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row justify-content-center wow zoomIn" data-wow-delay="0.3s">
+                <div class="col-lg-8 container6">
+                    <video src="video/Relationships between Pressure, Volume and Temperature.mp4" class="img-fluid" controls></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <section id="">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded-box wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="row">
+                        <div class="col-lg-12 text-center wow zoomIn" data-wow-delay="0.5s">
+                            <div class="teacher-container">
+                                <!-- Did You Know Bubble (Above the Teacher) -->
+                                <div class="bubble" onclick="showOutput()">
+                                  Did You Know? (Click Me!)
+                                </div>
+                            
+                                <!-- Output Bubble (Hidden by Default) -->
+                                <div id="outputBubble" class="output-bubble">
+                                  You are constantly surrounded by trillions of tiny air particles that are moving so fast they would make a supersonic jet look like a snail.
+                                </div>
+                            
+                                <!-- Cartoon Teacher Image -->
+                                <img src="12.png" alt="Cartoon Teacher" class="teacher-img">
+                               
+                                <!-- Trivia Questions -->
+                                <div class="trivia-question" onclick="toggleAnswer('answer1')">
+                                  <b>Trivia Question 1:</b> Why does a balloon filled with air get smaller when it's cold?
+                                </div>
+                                <div id="answer1" class="answer">
+                                    <b>Answer:</b> KMT explains this! Lower temperatures mean gas particles (like the air in the balloon) have less kinetic energy, moving slower and colliding less frequently. This reduced movement leads to a decrease in volume, making the balloon shrink.
+                                </div>
+                            
+                                <div class="trivia-question" onclick="toggleAnswer('answer2')">
+                                    <b>Trivia Question 2:</b> Why does perfume smell stronger in a warm room?
+                                </div>
+                                <div id="answer2" class="answer">
+                                  <b>Answer:</b> Again, KMT! Higher temperatures mean the perfume's particles (which are gases) have more kinetic energy, moving faster and spreading out more quickly. This increased movement and dispersion make the scent more noticeable.
+                                </div>
+                            
+                                <div class="trivia-question" onclick="toggleAnswer('answer3')">
+                                    <b>Trivia Question 3:</b> Why does a bicycle pump get hot when you pump up a tire?
+                                </div>
+                                <div id="answer3" class="answer">
+                                    <b>Answer:</b> The act of pumping increases the pressure and kinetic energy of the air particles inside the pump. These collisions between the high-energy particles generate heat, making the pump feel warmer.
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<script>
+// JavaScript to toggle answers
+function toggleAnswer(id) {
+    const answer = document.getElementById(id);
+        if (answer.style.display === "none" || answer.style.display === "") {
+            answer.style.display = "block";
+        } else {
+            answer.style.display = "none";
+        }
+}
+// JavaScript to show output bubble
+function showOutput() {
+    const outputBubble = document.getElementById('outputBubble');
+    outputBubble.style.display = 'block';
+    setTimeout(() => {
+        outputBubble.style.display = 'none';
+    }, 9000); // Hide the bubble after 9 seconds
+}
+// Function to show or hide responses
+function showResponse(questionNumber, answer) {
+    const response = document.getElementById(`response${questionNumber}`);
+        if (answer === 'yes') {
+            response.style.display = 'block';
+            } else {
+                response.style.display = 'none';
+                }
+}
+</script>
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-3 mt-3 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="copyright">
+                    <div class="col-md-12 text-center">Copyright
+                        &copy; 2025 BiPSU BS-EDUCATION
+
+                       <br> <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <script>
+        // JavaScript function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+
+        // Show back button when scrolling
+        window.addEventListener('scroll', function() {
+            var backButton = document.getElementById('backButton');
+            if (window.scrollY > 100) { // Adjust the scroll threshold as needed
+                backButton.style.display = 'block';
+            } else {
+                backButton.style.display = 'none';
+            }
+        });
+    </script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
